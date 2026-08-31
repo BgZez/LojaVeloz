@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pedidos-service
+spec:
+  # O selector é como o Service "encontra" os contêineres do pedidos-deployment.yaml
+  selector:
+    # 1. Qual era o nome da label que colocamos no nosso pedidos-deployment.yaml lá em cima?
+    app: pedidos
+
+  ports:
+    # A porta do Service (pode ser qualquer uma, ex: 80)
+    - port: 80
+      # 2. Para qual porta do contêiner o Service deve mandar o tráfego?
+      targetPort: 8080

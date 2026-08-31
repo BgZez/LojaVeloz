@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pedidos-deployment
+spec:
+  replicas: 2
+
+  # A estratégia fica alinhada aqui fora!
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 1
+
+  selector:
+    matchLabels:
+      app: pedidos
+
+  template:
+    metadata:
+      labels:
+        app: pedidos
+    spec:
+      containers:
+        - name: pedidos-container
+          image: lojaveloz/pedidos:v1
+          ports:
+            - containerPort: 8080
+
+          env:
+            - name: SPRING_DATASOURCE_URL
+              value: "jdbc:postgresql://postgres-service:5432/veloz_db"
+            - name: SPRING_DATASOURCE_USERNAME
+              value: "lojaveloz"
+            - name: SPRING_DATASOURCE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-passwords
+                  key: postgres-senha
+
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 15
+
+
