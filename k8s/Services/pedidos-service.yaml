@@ -11,5 +11,5 @@ spec:
   ports:
     # A porta do Service (pode ser qualquer uma, ex: 80)
     - port: 80
-      # 2. Para qual porta do contêiner o Service deve mandar o tráfego?
+
       targetPort: 8080
