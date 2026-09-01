@@ -5,7 +5,7 @@ metadata:
 spec:
   # O selector é como o Service "encontra" os contêineres do pedidos-deployment.yaml
   selector:
-    # 1. Qual era o nome da label que colocamos no nosso pedidos-deployment.yaml lá em cima?
+
     app: pedidos
 
   ports:
