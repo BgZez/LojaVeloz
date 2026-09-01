@@ -40,6 +40,6 @@ jobs:
 
       - name: Build e Push da Imagem
         run: |
-          cd pedidos
-          docker build -t lojaveloz/pedidos:v1 .
-          docker push lojaveloz/pedidos:v1
+            cd pedidos
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/pedidos:v1 .
+            docker push ${{ secrets.DOCKER_USERNAME }}/pedidos:v1
