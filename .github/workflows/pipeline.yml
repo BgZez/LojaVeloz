@@ -39,7 +39,9 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       - name: Build e Push da Imagem
+        env:
+            MEU_USUARIO: ${{ secrets.DOCKER_USERNAME }}
         run: |
             cd pedidos
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/pedidos:v1 .
-            docker push ${{ secrets.DOCKER_USERNAME }}/pedidos:v1
+            docker build -t $MEU_USUARIO/pedidos:v1 .
+            docker push $MEU_USUARIO/pedidos:v1
